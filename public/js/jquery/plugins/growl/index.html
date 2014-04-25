@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Growl Test</title>
+  
+<script type="text/javascript" src="http://172.27.11.150/atenciontrabajador/js/jquery/js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="http://172.27.11.150/atenciontrabajador/js/jquery/plugins/jquery-ui-1.8.4.custom.min.js"></script>
+<script type="text/javascript" src="http://172.27.11.150/atenciontrabajador/js/jquery/plugins/jdMenu/jquery.jdMenu.js"></script>
+<script type="text/javascript" src="http://172.27.11.150/atenciontrabajador/js/jquery/plugins/jdMenu/jquery.positionBy.js"></script>
+<script type="text/javascript" src="http://172.27.11.150/atenciontrabajador/js/jquery/plugins/jdMenu/jquery.bgiframe.js"></script>
+<script type="text/javascript" src="http://172.27.11.150/atenciontrabajador/js/jquery/plugins/jquery.validate.js"></script>
+<script type="text/javascript" src="http://172.27.11.150/atenciontrabajador/js/jquery/plugins/jquery.tabSlideOut.v1.3.js"></script>
+<script type="text/javascript" src="http://172.27.11.150/atenciontrabajador/js/jquery/plugins/growl/jquery.growl.js"></script>
+<link rel="stylesheet" type="text/css" href="http://172.27.11.150/atenciontrabajador/js/jquery/plugins/css/redmond/jquery-ui-1.8.4.custom.css" />
+
+<link rel="stylesheet" type="text/css" href="http://172.27.11.150/atenciontrabajador/js/jquery/plugins/jdMenu/jquery.jdMenu.css" />
+<link rel="stylesheet" type="text/css" href="http://172.27.11.150/atenciontrabajador/js/jquery/plugins/growl/css/growl.css" />
+
+  
+  <style type="text/css">
+    body{
+      background: #666 url(bodybg.jpg);
+      color: #ddd;
+      font: normal 100% Georgia;
+    }
+    
+    a{
+      color: #ccc;
+      text-decoration: none;
+    }
+    a:hover{
+      text-decoration: underline;
+    }
+    
+    #about{
+      position: absolute;
+      left: 20px;top:20px;width:650px;
+    }
+    
+    #about h1{
+      background-color: #000;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    
+    #about .info{
+      padding: 20px;
+      background-color: #000;
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+    
+    #donate{
+      display: none;
+    }
+    
+    p{
+      margin-bottom: 25px;
+    }
+    
+  </style>
+  
+  <script type="text/javascript">
+    
+    $(function(){
+      
+      $("#btnExSimple").bind("click",function(){
+        $.Growl.show({
+          'message': "That was easy!!"
+        });
+      });
+      
+      $("#btnExIcon").bind("click",function(){
+        $.Growl.show({
+          'title'  : "Icon Example",
+          'message': "That was easy too!!",
+          'icon'   : "parachute",
+          'timeout': false
+        });
+      });
+      
+      $("#btnExLove").bind("click",function(){
+        $.Growl.show({
+          'title'  : "Show some love...",
+          'message': $("#donate").html(),
+          'icon'   : "heart",
+          'timeout': false
+        });
+      });
+
+    });
+    
+  
+  </script>
+
+</head>
+<body>
+  <div id="about">
+    <h1>Growl (for the net &amp; jQuery)</h1>
+    
+    <div class="info">
+      
+      <p>
+        <h3>Growl - WTF!?</h3>
+        find the answer <strong><a href="http://growl.info" target="_blank">here...</a></strong>
+      </p>
+      
+      <p>
+        <h3>Is it difficult - Hell, no!</h3>
+        <button id="btnExSimple" type="button">simple example</button> 
+        <button id="btnExIcon" type="button">sticky icon example</button> 
+        ...you like it? 
+        <button id="btnExLove" type="button">show some...</button> &amp; <strong><a href="http://plugins.jquery.com/project/Growl-for-the-net-and-jQuery">get the code.</a></strong>
+      </p>
+      
+      <p>
+        Tested with IE8, Firefox 3.5, Opera 10b2, Safari 4, Chrome 2
+      </p>
+      
+      <p style="margin-top:80px;">
+        <strong>Issues (buuuuh):</strong>
+        <ul>
+          <li>IE / Opera &amp; support for border-radius = zero</li>
+          <li>IE &amp; rgba() are not friends</li>
+        </ul>
+      </p>
+      
+    </div>
+    
+  </div>
+  
+  
+  <div id="donate">
+    
+    and help me to buy a beer (or two) :-)
+    <br /><br />
+  
+    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+      <input type="hidden" name="cmd" value="_xclick">
+      <input type="hidden" name="business" value="artur@d-xp.com">
+      <input type="hidden" name="no_note" value="1">
+
+      <input type="hidden" name="currency_code" value="EUR">
+      <input type="hidden" name="tax" value="0">
+      <input type="hidden" name="bn" value="PP-DonationsBF">
+      <input type="submit" value="Donate!">
+    </form>
+  </div>
+  
+  
+</body>
+</html>
