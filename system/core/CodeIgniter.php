@@ -1,5 +1,5 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/**
+/***
  * CodeIgniter
  *
  * An open source application development framework for PHP 5.1.6 or newer
