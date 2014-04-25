@@ -34,7 +34,7 @@ class Login extends CI_Controller {
 		
     	$sistema = $this->Usuario_model->validar_en_sistema($usuario);
     	$ldap = $this->Usuario_model->validar_en_ldap($usuario, $password);
-    	$ldap = true ;
+    	//$ldap = true ;
     	if ($sistema && $ldap)
     	{	
     		$usuario = $this->Usuario_model->get_usuario($usuario);
@@ -60,7 +60,6 @@ class Login extends CI_Controller {
 	}
     
     function validar_usuario()  {
-    	#die('Matoooooooooo') ;
     	$this->load->library('form_validation');
     	if ($this->input->post('usuario') != ''		AND		$this->input->post('password') != '')
     	{

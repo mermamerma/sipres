@@ -65,8 +65,7 @@ class Trabajador extends CI_Controller {
 			$data['fecha_egreso'] = $trabajador->fecha_egreso ;	
 			$data['origen'] = $trabajador->origen ;	
 			$html = $this->parser->parse('trabajador/reportes/ficha_personal', $data,TRUE); 				
-			$this->pdf->writeHTML($html, true, false, false, false, ''); 
-			#$this->pdf->RoundedRect(150, 35, 30, 30, 3.50, '1111', 'DF');
+			$this->pdf->writeHTML($html, true, false, false, false, ''); 			
 			$this->pdf->RoundedRect(165, 35, 30, 30, 6.50, '0000');
 			$this->pdf->Text(162,68,'FOTO RECIENTE') ;
 			$this->pdf->Output('ficha_personal.pdf', 'I'); 
@@ -120,6 +119,7 @@ class Trabajador extends CI_Controller {
 		register_log('Busqueda',"Busqueda de trámites al trabajador con C.I.: $cedula",1);	
 		$trab_sigefirrhh = $this->trabajador_model->get_reg_sigefirrhh($cedula) ;
 		$trab_rrhh = $this->trabajador_model->get_reg_rrhh($cedula) ;
+		$data['tram_reg'] = $this->tramite_model->get_lista($cedula) ;
 		if ($trab_sigefirrhh !== FALSE AND $trab_rrhh !== FALSE) { ### Tiene Registros en SIGEFIRRHH y en RRHH
 			$mov_sigefirrhh = $this->trabajador_model->get_movimientos_sigefirrhh($cedula) ;
 			$mov_rrhh = $this->trabajador_model->get_movimientos_rrhh($cedula) ;
@@ -130,8 +130,7 @@ class Trabajador extends CI_Controller {
 			$data['apellidos'] = $trab_sigefirrhh->apellidos;
 			$data['sexo'] = $trab_sigefirrhh->sexo;
 			$data['fecha_nacimiento'] = $trab_sigefirrhh->fecha_nacimiento;
-			$data['origen'] = $trab_sigefirrhh->origen;
-			$data['tram_reg'] = $this->tramite_model->get_list_reg($cedula) ;
+			$data['origen'] = $trab_sigefirrhh->origen;			
 			$this->load->view('trabajador/maestro_detalle',$data) ;
 		}
 		else if ($trab_rrhh != FALSE AND $trab_sigefirrhh == FALSE ) { ### Tiene Solo Registros en RRHH

@@ -13,7 +13,7 @@ class Usuario_model extends CI_Model {
 		parent::__construct();
 		$this->sigefirrhh = $this->load->database('sigefirrhh',TRUE);
 		$this->rrhh = $this->load->database('rrhh',TRUE);
-		#$this->load->library('adldap');
+		$this->load->library('adldap');
 		#$this->sigefirrhh = $this->load->database('sigefirrhh',TRUE);
 	}
 	
@@ -64,9 +64,9 @@ class Usuario_model extends CI_Model {
 	}
 	
 	function validar_en_ldap($usuario, $password) {
-		#$res = $this->adldap->authenticate($usuario,$password);
-		#return $res ;
-		return true;		
+		$res = $this->adldap->authenticate($usuario,$password);
+		return $res ;
+		//return true;		
 	}
 	
 	function existe_en_ldap($usuario) {

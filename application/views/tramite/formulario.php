@@ -12,6 +12,18 @@
 <div id="dialog-confirm" title="Atención">
 </div>
 <div id="form_container">
+<?php
+$cedula =  $datos->cedula ;
+$con_foto = 'http://rrhh.mppre.gob.ve/fotos/'.$cedula.'.jpg';
+$sin_foto = base_url().'public/images/sin_foto.png';
+$fp = curl_init($con_foto);
+$ret = curl_setopt($fp, CURLOPT_RETURNTRANSFER, 1);
+$ret = curl_setopt($fp, CURLOPT_TIMEOUT, 30);
+$ret = curl_exec($fp);
+$info = curl_getinfo($fp, CURLINFO_HTTP_CODE);
+curl_close($fp);
+$url = ($info == 404)? $sin_foto : $con_foto ;
+?>
 <form id="form1" class="appnitro" method="post" action="" >
   <div class="form_description">
     <h2><?= $accion ?><img id="img_accion" class="icon_accion" src="<?=base_url().'public/images/iconos/'.$icon?>" /></h2>
@@ -42,7 +54,8 @@
 				<?= form_input('cedula',$datos->cedula,'class="element text_gris medium-form" readonly=""')?>
 				</li>			</td>
             <td align="center">
-				<img class="fotico" height="100" src="http://rrhh.mppre.gob.ve/fotos/<?= $datos->cedula?>.jpg">			</td>
+				<img class="fotico" height="100" src="<?=$url?>">
+			</td>
           </tr>
           <tr>
             <td width="410">

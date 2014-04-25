@@ -15,17 +15,15 @@ class Tramite_model extends CI_Model {
         parent::__construct();         
     }
     
-    function get_list_reg($cedula) {		
+    function get_lista($cedula) {		
 		$sql = "
-		SELECT
-		t.id_tramite, t.cedula, t.id_trabajador, t.id_empleado,
-		TO_CHAR(t.fecha_inicio, 'DD-MM-YYYY HH:MI AM') AS fecha_creacion,
-		et.nombre_estatus_tramite AS estatus, 
-		CASE WHEN t.id_trabajador > 0 AND t.id_empleado = 0 THEN 'SIGEFIRRHH' ELSE 'RRHH' END AS ORIGEN, 
-		u.usuario 
+		SELECT t.id_tramite, t.cedula, t.id_trabajador, t.id_empleado, TO_CHAR(t.fecha_inicio, 'DD-MM-YYYY HH:MI AM') AS fecha_creacion, 
+		et.nombre_estatus_tramite AS estatus, CASE WHEN t.id_trabajador > 0 AND t.id_empleado = 0 THEN 'SIGEFIRRHH' ELSE 'RRHH' END AS ORIGEN,
+		u.usuario, u_asig.usuario as usuario_asignado
 		FROM tramite t 
-		INNER JOIN estatus_tramite et ON (et.id_estatus_tramite = t.id_estatus_tramite )
-		INNER JOIN usuario u ON (u.id_usuario = t.id_usuario)
+		LEFT JOIN estatus_tramite et ON (et.id_estatus_tramite = t.id_estatus_tramite ) 
+		LEFT JOIN usuario u ON (u.id_usuario = t.id_usuario) 
+		LEFT JOIN usuario u_asig ON (u_asig.id_usuario = t.id_usuario_asignado) 
 		WHERE t.cedula = '$cedula'	";
 		$row = $this->db->query($sql);
 		if ($row->num_rows() > 0)	

@@ -1,6 +1,16 @@
 <?PHP
 $ci = &get_instance();
 $ci->load->model("tramite_model");
+
+$con_foto = 'http://rrhh.mppre.gob.ve/fotos/'.$cedula.'.jpg';
+$sin_foto = base_url().'public/images/sin_foto.png';
+$fp = curl_init($con_foto);
+$ret = curl_setopt($fp, CURLOPT_RETURNTRANSFER, 1);
+$ret = curl_setopt($fp, CURLOPT_TIMEOUT, 30);
+$ret = curl_exec($fp);
+$info = curl_getinfo($fp, CURLINFO_HTTP_CODE);
+curl_close($fp);
+$url = ($info == 404)? $sin_foto : $con_foto ;
 ?>
 <table width="827" border="0" id="tabla_datos_trabajador" style="display:block">
           
@@ -13,7 +23,8 @@ $ci->load->model("tramite_model");
             <td width="305"><label class="description" for="element_2">Apellidos</label>
               <?= form_input('apellidos',$apellidos,'class="element text_gris medium-form" readonly=""')?></td>
             <td width="119" rowspan="2" align="center">
-				<img class="fotico" height="100" src="http://rrhh.mppre.gob.ve/fotos/<?=$cedula?>.jpg">			</td>
+				<img class="fotico" width="71" height="100" src="<?=$url?>">
+				</td>
           </tr>
           <tr>
             <td>
@@ -69,7 +80,7 @@ $ci->load->model("tramite_model");
 				?>
 				</td>
 				<td align="center">
-					<?php if (($row->estatus != 'ACTIVO') AND (!$comenzado_1)):  ?>
+					<?php if (($row->estatus != 'ACTIVO' AND $row->estatus != 'SUSPENDIDO') AND (!$comenzado_1)):  ?>
 						<a href="<?= base_url()?>tramite/formulario/0/<?=$row->cedula?>/<?=$row->id_trabajador?>/<?=$row->id_empleado?>">
 						<img class="fotico" alt="Iniciar Trámite" title="Iniciar Trámite" height="15" src="<?= base_url()?>public/images/iconos/iniciar.png"></a>
 					<?php endif; ?>
@@ -130,9 +141,10 @@ $ci->load->model("tramite_model");
 			<table width="821" cellspacing="1" id="datatable_tramites">
 			<thead>
 			<tr>
-				<th>Fecha Registro </th>
+				<th>Iniciado</th>
 				<th>Estatus</th>
-				<th>Usuario</th>
+				<th>Registrado por </th>
+				<th>Analista Asignado</th>
 				<th>Base de Datos</th>
 				<th>ID</th>
 				<th>Acciones</th>
@@ -145,22 +157,19 @@ $ci->load->model("tramite_model");
 				<td><?=$row->fecha_creacion?></td>
 				<td><?=$row->estatus?></td>
 				<td><?=$row->usuario?></td>
+				<td><?=$row->usuario_asignado?></td>
 				<td><?=$row->origen?></td>
 				<td align="center">
 				<?php if ($row->id_trabajador > 0) 
 					echo  $row->id_trabajador ;
 				else
 					echo  $row->id_empleado ;
-				?>
-				</td>
+				?>				</td>
 				<td align="center">
 					<a href="<?= base_url()?>tramite/formulario/<?=$row->id_tramite?>/<?=$row->cedula?>/<?=$row->id_trabajador?>/<?=$row->id_empleado?>">
-					<img class="" alt="Ver Trámite" title="Ver Trámite" height="15" src="<?= base_url()?>public/images/iconos/tramite_detalle.png">
-					</a>
+					<img class="" alt="Ver Trámite" title="Ver Trámite" height="15" src="<?= base_url()?>public/images/iconos/tramite_detalle.png">					</a>
 					<a href="<?= base_url()?>tramite/informe/<?=$row->id_tramite?>/<?=$row->cedula?>/<?=$row->id_trabajador?>/<?=$row->id_empleado?>" target="_blank">
-					<img class="" alt="Generar Informe" title="Generar Informe" height="15" src="<?= base_url()?>public/images/iconos/printer.png">
-					</a>
-				</td>
+					<img class="" alt="Generar Informe" title="Generar Informe" height="15" src="<?= base_url()?>public/images/iconos/printer.png">					</a>				</td>
 			  </tr>
 			<?php endforeach; ?>
 			<?php endif; ?>			
