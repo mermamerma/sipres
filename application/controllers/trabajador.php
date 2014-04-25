@@ -66,7 +66,8 @@ class Trabajador extends CI_Controller {
 			$data['origen'] = $trabajador->origen ;	
 			$html = $this->parser->parse('trabajador/reportes/ficha_personal', $data,TRUE); 				
 			$this->pdf->writeHTML($html, true, false, false, false, ''); 
-			// Esto es Para probar el Git en Hub
+			// Esto es Para probar el Git en Hub y agrego otras palbas a la linea
+			// agrego otra línea
 			$this->pdf->RoundedRect(165, 35, 30, 30, 6.50, '0000');
 			$this->pdf->Text(162,68,'FOTO RECIENTE') ;
 			$this->pdf->Output('ficha_personal.pdf', 'I'); 
