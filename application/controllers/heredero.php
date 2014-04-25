@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-/**
+/****
 * 
 * @package  Sipres 
 * @category Controller CodeIgniter 
